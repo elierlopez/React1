@@ -7,9 +7,13 @@ const users = [
   {
     FirstName: 'Adriana',
     LastName: 'Elizabeth'
-  },  
+  }, 
+  {
+    FirstName: 'Albeeto',
+    LastName: 'Ceballos'
+  },    
 ];
-localStorage.setItem('products',JSON.stringify(users));
+localStorage.setItem('users',JSON.stringify(users));
 class AllUsersComponent extends Component {
   constructor(props){
     super(props);
@@ -18,7 +22,8 @@ class AllUsersComponent extends Component {
     };
   }
   componentWillMount(){
-    const users = JSON.parse(localStorage.getItem('users'))
+    const users = JSON.parse(localStorage.getItem('users'));
+    this.setState({users});
   }
   render() {
     return (
@@ -28,9 +33,10 @@ class AllUsersComponent extends Component {
             {
               this.state.users.map(user=> {
               return (
-                <diV key={user.name}>
-                  <span>{user.name}</span>
-                </diV>
+                <div key={user.FirstName}>
+                  <span>{user.FirstName}</span>|
+                  <span>{user.LastName}</span>
+                </div>
               );
               })
             }
