@@ -10,13 +10,13 @@ class UserItem extends Component {
     this.onEditSubmit = this.onEditSubmit.bind(this);      
   }
  
-  onDelete(){
+  onDelete = () => {
     const{onDelete, FirstName}= this.props;
     onDelete(FirstName);
     // this.props.onDelete(this.props.FirstName); // with no destructuring
   }
 
-  onEdit(){
+  onEdit = () => {
     this.setState({isEdit:true});
   }
 

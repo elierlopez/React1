@@ -22,7 +22,7 @@ class AllUsersComponent extends Component {
   constructor(props){
     super(props);
     this.state={
-      users:JSON.parse(localStorage.getItem('users'))
+      users:[] //JSON.parse(localStorage.getItem('users'))
     };
 
     this.onAdd = this.onAdd.bind(this);
@@ -31,21 +31,32 @@ class AllUsersComponent extends Component {
   }
 
   componentWillMount(){
-    const users = this.getUsers();
-    this.setState({users});
+    this.getUsers();  
   }
 
-  getUsers(){
-    return this.state.users;
+  getUsers = () => {
+    fetch('https://reqres.in/api/users')
+    .then(results => {
+      return results.json();
+    }).then(json =>{
+      let users =[];      
+      users = json.data.map(user =>{
+        return {
+            FirstName: user.first_name,
+            LastName: user.last_name
+        };
+       });
+       this.setState({users});
+    });
   }
 
-  onAdd(FirstName, LastName){
+  onAdd = (FirstName, LastName) =>  {
     const users = this.getUsers();
     users.push({FirstName,LastName});
     this.setState({users});
   }
 
-  onDelete(FirstName){
+  onDelete = FirstName => {
     const users = this.getUsers();
     const filteredUsers = users.filter(user => { 
       return user.FirstName !== FirstName;
@@ -54,7 +65,7 @@ class AllUsersComponent extends Component {
     this.setState({users:filteredUsers});
   }
 
-  onEditSubmit(FirstName, LastName, OriginalFirstName){
+  onEditSubmit = (FirstName, LastName, OriginalFirstName) => {
     let users = this.getUsers();
     users.map(user => {
       if(user.FirstName === OriginalFirstName){
@@ -63,6 +74,7 @@ class AllUsersComponent extends Component {
       }
       return user;
     });
+
     this.setState({users});
   }  
 
