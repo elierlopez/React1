@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import AllUsersComponent from './AllUsersComponent';
-import EditUserComponent from './EditUserComponent';
+// import EditUserComponent from './EditUserComponent';
+
 
 
 class App extends Component {
@@ -13,8 +14,8 @@ class App extends Component {
           < img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to users crud</h1>
         </header>
+        
         <AllUsersComponent/>
-        {/* <EditUserComponent /> */}
       </div>
     );
   }

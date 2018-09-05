@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import UserItem from './UserItem';
+import AddUser from './AddUser';
+
 const users = [
   {
     FirstName: 'Elier',
@@ -9,38 +12,82 @@ const users = [
     LastName: 'Elizabeth'
   }, 
   {
-    FirstName: 'Albeeto',
+    FirstName: 'Alberto',
     LastName: 'Ceballos'
   },    
 ];
 localStorage.setItem('users',JSON.stringify(users));
+
 class AllUsersComponent extends Component {
   constructor(props){
     super(props);
     this.state={
-      users:[]
+      users:JSON.parse(localStorage.getItem('users'))
     };
+
+    this.onAdd = this.onAdd.bind(this);
+    this.onDelete = this.onDelete.bind(this);
+    this.onEditSubmit = this.onEditSubmit.bind(this);
   }
+
   componentWillMount(){
-    const users = JSON.parse(localStorage.getItem('users'));
+    const users = this.getUsers();
     this.setState({users});
   }
+
+  getUsers(){
+    return this.state.users;
+  }
+
+  onAdd(FirstName, LastName){
+    const users = this.getUsers();
+    users.push({FirstName,LastName});
+    this.setState({users});
+  }
+
+  onDelete(FirstName){
+    const users = this.getUsers();
+    const filteredUsers = users.filter(user => { 
+      return user.FirstName !== FirstName;
+    });
+
+    this.setState({users:filteredUsers});
+  }
+
+  onEditSubmit(FirstName, LastName, OriginalFirstName){
+    let users = this.getUsers();
+    users.map(user => {
+      if(user.FirstName === OriginalFirstName){
+        user.FirstName = FirstName;
+        user.LastName = LastName;
+      }
+      return user;
+    });
+    this.setState({users});
+  }  
+
   render() {
     return (
           <div>
-          <h1 className="App-title">The user list</h1>
-          <div>
-            {
-              this.state.users.map(user=> {
-              return (
-                <div key={user.FirstName}>
-                  <span>{user.FirstName}</span>|
-                  <span>{user.LastName}</span>
-                </div>
-              );
-              })
-            }
-          </div>
+            <AddUser
+              onAdd={this.onAdd}
+            />
+
+            <div>
+            <h3>User list</h3>
+              {
+                this.state.users.map(user=> {
+                return (                
+                  <UserItem 
+                    key={user.FirstName} 
+                    {...user}
+                    onDelete={this.onDelete}
+                    onEditSubmit={this.onEditSubmit}                    
+                   />                                  
+                );
+                })
+              }
+            </div>
         </div>
       );
   }
