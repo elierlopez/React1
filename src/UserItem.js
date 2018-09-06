@@ -3,17 +3,12 @@ import React, { Component } from 'react';
 class UserItem extends Component {
   constructor(props){
     super(props);
-    this.state={isEdit:false};
-
-    this.onDelete = this.onDelete.bind(this);    
-    this.onEdit = this.onEdit.bind(this); 
-    this.onEditSubmit = this.onEditSubmit.bind(this);      
+    this.state={isEdit:false};      
   }
  
   onDelete = () => {
     const{onDelete, UserId}= this.props;
     onDelete(UserId);
-    // this.props.onDelete(this.props.FirstName); // with no destructuring
   }
 
   onEdit = () => {

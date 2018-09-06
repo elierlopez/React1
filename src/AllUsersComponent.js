@@ -2,32 +2,12 @@ import React, { Component } from 'react';
 import UserItem from './UserItem';
 import AddUser from './AddUser';
 
-const users = [
-  {
-    FirstName: 'Elier',
-    LastName: 'Lopez'
-  },
-  {
-    FirstName: 'Adriana',
-    LastName: 'Elizabeth'
-  }, 
-  {
-    FirstName: 'Alberto',
-    LastName: 'Ceballos'
-  },    
-];
-localStorage.setItem('users',JSON.stringify(users));
-
 class AllUsersComponent extends Component {
   constructor(props){
     super(props);
     this.state={
-      users:[] //JSON.parse(localStorage.getItem('users'))
+      users:[] 
     };
-
-    this.onAdd = this.onAdd.bind(this);
-    this.onDelete = this.onDelete.bind(this);
-    this.onEditSubmit = this.onEditSubmit.bind(this);
   }
 
   componentWillMount(){
@@ -89,6 +69,10 @@ class AllUsersComponent extends Component {
     fetch(url,
     {
       method: 'DELETE'
+    })
+    .then(response => {
+      alert('Status Code:' + response.status);
+      console.log(response);
     })
     .catch( error => {
       console.log(error);
