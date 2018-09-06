@@ -11,8 +11,8 @@ class UserItem extends Component {
   }
  
   onDelete = () => {
-    const{onDelete, FirstName}= this.props;
-    onDelete(FirstName);
+    const{onDelete, UserId}= this.props;
+    onDelete(UserId);
     // this.props.onDelete(this.props.FirstName); // with no destructuring
   }
 
@@ -22,7 +22,7 @@ class UserItem extends Component {
 
   onEditSubmit= event => {
     event.preventDefault();
-    this.props.onEditSubmit(this.FirstNameInput.value, this.LastNameInput.value, this.props.FirstName);
+    this.props.onEditSubmit(this.FirstNameInput.value, this.LastNameInput.value, this.props.UserId);
     this.setState({isEdit:false});
 }
  

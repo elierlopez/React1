@@ -34,48 +34,89 @@ class AllUsersComponent extends Component {
     this.getUsers();  
   }
 
-  getUsers = () => {
-    fetch('https://reqres.in/api/users')
+  getUsers = (page=1) => {
+    const url = 'https://reqres.in/api/users?page=' + page;
+    fetch(url)
     .then(results => {
-      return results.json();
-    }).then(json =>{
+      return results.json();})
+    .then(json =>{
       let users =[];      
       users = json.data.map(user =>{
         return {
+            UserId: user.id,
             FirstName: user.first_name,
             LastName: user.last_name
         };
        });
        this.setState({users});
+    },
+    (error) => {
+      console.log(error);
     });
+    return this.state.users;
   }
 
   onAdd = (FirstName, LastName) =>  {
-    const users = this.getUsers();
-    users.push({FirstName,LastName});
-    this.setState({users});
-  }
-
-  onDelete = FirstName => {
-    const users = this.getUsers();
-    const filteredUsers = users.filter(user => { 
-      return user.FirstName !== FirstName;
-    });
-
-    this.setState({users:filteredUsers});
-  }
-
-  onEditSubmit = (FirstName, LastName, OriginalFirstName) => {
-    let users = this.getUsers();
-    users.map(user => {
-      if(user.FirstName === OriginalFirstName){
-        user.FirstName = FirstName;
-        user.LastName = LastName;
+    const url = 'https://reqres.in/api/users';
+    fetch(url,
+    {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       }
-      return user;
+    },
+    {
+      body: JSON.stringify({
+      name: FirstName,
+      job: LastName
+      })
+    })
+    .then(results => {
+      return results.json();
+    })
+    .then(json => {
+      alert('UserId: ' + json.id + ' <--> CreatedAt: ' + json.createdAt);            
+    }).catch( error => {
+      console.log(error);
     });
+   
+    this.getUsers();
+  }
 
-    this.setState({users});
+  onDelete = userId => {
+    const url = 'https://reqres.in/api/users/' + userId;
+    fetch(url,
+    {
+      method: 'DELETE'
+    })
+    .catch( error => {
+      console.log(error);
+    });
+   
+    this.getUsers();
+  }
+
+  onEditSubmit = (firstName, lastName, userId) => {
+    const url = 'https://reqres.in/api/' + userId
+    fetch(url,
+      {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: firstName,
+          job: lastName,
+        }),
+      })
+      .then(response => response.json())
+      .then(json => {
+        alert('Name: ' + json.name + ' <--> Job: ' + json.job + ' <--> UpdatedAt: ' + json.updatedAt);
+      });
+
+      this.getUsers();
   }  
 
   render() {
@@ -91,7 +132,7 @@ class AllUsersComponent extends Component {
                 this.state.users.map(user=> {
                 return (                
                   <UserItem 
-                    key={user.FirstName} 
+                    key={user.UserId} 
                     {...user}
                     onDelete={this.onDelete}
                     onEditSubmit={this.onEditSubmit}                    
