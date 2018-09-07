@@ -9,7 +9,7 @@ export const getUsers = (page=1) => dispatch => {
     .then(users =>
         dispatch({
             type: GET_USERS,
-            payload: users.data
+            payload: users
           })
     );
   };

@@ -27,7 +27,7 @@ class AllUsersComponent extends Component {
             <div>
             <h3>User list</h3>
               {
-                this.state.users.map(user=> {
+                this.props.users.map(user=> {
                 return (     
                   <UserItem 
                     key={user.id} 
