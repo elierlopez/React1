@@ -23,7 +23,7 @@ class UserItem extends Component {
  
 
   render() {
-    const {FirstName, LastName} = this.props;
+    const {first_name, last_name} = this.props;
     return ( 
         <div>
             {
@@ -33,21 +33,21 @@ class UserItem extends Component {
                         <input 
                             placeholder="First Name"
                             ref={FirstNameInput => this.FirstNameInput = FirstNameInput}
-                            defaultValue={FirstName}
+                            defaultValue={first_name}
                         />
                         <input 
                             placeholder="Last Name"
                             ref={LastNameInput => this.LastNameInput = LastNameInput}                
-                            defaultValue={LastName}
+                            defaultValue={last_name}
                         />
                         <button>Save</button>    
                     </form>
                 ):
                 (
                 <div>
-                    <span>{FirstName}</span>
+                    <span>{first_name}</span>
                     {` | `}
-                    <span>{LastName}</span>
+                    <span>{last_name}</span>
                     {` | `}
                     <button onClick={this.onEdit}>Edit</button>
                     {` | `}

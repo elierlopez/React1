@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { onAdd } from "../actions/userActions";
+
+
 
 class AddUser extends Component {
   constructor(props){
@@ -19,10 +24,10 @@ class AddUser extends Component {
                 <h3>Add user</h3>        
                 <form onSubmit={this.onSubmit}>                
                     <input placeholder="First Name"
-                        ref={FirstNameInput => this.FirstNameInput = FirstNameInput}
+                        ref={firstName => this.FirstNameInput = firstName}
                     />
                     <input placeholder="Last Name"
-                        ref={LastNameInput => this.LastNameInput = LastNameInput}                
+                        ref={lastName => this.LastNameInput = lastName}                
                     />
                     <button>Add</button>
 
@@ -33,4 +38,12 @@ class AddUser extends Component {
   }
 }
 
-export default AddUser;
+AddUser.propTypes = {
+    onAdd: PropTypes.func.isRequired
+  };
+  
+  export default connect(
+    null,
+    { onAdd }
+  )(AddUser);
+  
