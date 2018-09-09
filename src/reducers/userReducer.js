@@ -7,9 +7,9 @@ import {
 
 const initialState = {
   items: [],
-  newUser: null,
-  deleteUser: null,
-  updatedUser: null
+  onAdd: null,
+  onDelete: null,
+  onEditSubmit: null
 };
 
 export default function(state = initialState, action) {
@@ -20,20 +20,28 @@ export default function(state = initialState, action) {
         items: action.payload.data
       };
     case ADD_USER:
-      return {
-        ...state,
-        newUser: action.payload
-      };
+      return Object.assign({}, state, {
+        onAdd: action.payload,
+        items:[...state.items, action.payload]
+      })
     case DELETE_USER:
       return {
         ...state,
-        deleteUser: action.payload
+        onDelete: action.payload        
       };
     case UPDATE_USER:
-      return {
-        ...state,
-        updatedUser: action.payload
-      };
+      // return {
+      //   ...state,
+      //   onEditSubmit: action.payload
+      // };
+      return Object.assign({}, state, {
+        items: state.items.map(user => {
+          if (user.id === action.payload.id) {
+            return action.payload;
+          }
+          return user;
+        })
+      });      
     default:
       return state;
   }

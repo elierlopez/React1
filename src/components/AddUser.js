@@ -6,10 +6,10 @@ import { onAdd } from "../actions/userActions";
 
 
 class AddUser extends Component {
-  constructor(props){
-    super(props);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
+//   constructor(props){
+//     super(props);
+//     // this.onSubmit = this.onSubmit.bind(this);
+//   }
 
     onSubmit = event => {
         event.preventDefault();

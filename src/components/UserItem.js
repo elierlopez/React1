@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { onEditSubmit, onDelete } from "../actions/userActions";
 
 class UserItem extends Component {
   constructor(props){
@@ -17,7 +20,7 @@ class UserItem extends Component {
 
   onEditSubmit= event => {
     event.preventDefault();
-    this.props.onEditSubmit(this.FirstNameInput.value, this.LastNameInput.value, this.props.UserId);
+    this.props.onEditSubmit(this.FirstNameInput.value, this.LastNameInput.value, this.props.id);
     this.setState({isEdit:false});
 }
  
@@ -60,4 +63,13 @@ class UserItem extends Component {
   }
 }
 
-export default UserItem;
+UserItem.propTypes = {
+    onEditSubmit: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired
+  };
+  
+  export default connect(
+    null,
+    { onEditSubmit, onDelete }
+  )(UserItem);
+  

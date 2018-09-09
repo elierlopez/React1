@@ -35,7 +35,7 @@ export const getUsers = (page=1) => dispatch => {
       return results.json();
     })
     .then(user => {
-        user.name = name;
+        user.first_name = name;
         user.job = job;
         dispatch({
           type: ADD_USER,
@@ -43,6 +43,32 @@ export const getUsers = (page=1) => dispatch => {
         });
       });   
   };
+
+  export const onEditSubmit = (name, job, userId) => dispatch => {
+    const url = 'https://reqres.in/api/' + userId
+    fetch(url,
+      {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: name,
+          job: job,
+        })
+      })
+      .then(response => response.json())
+      .then(user =>{
+        user.id = userId;
+        user.first_name = name;
+        user.job = job;
+        dispatch({
+          type: UPDATE_USER,
+          payload: user
+        });
+      });
+  };    
 
   export const onDelete = userId => dispatch => {
     const url = 'https://reqres.in/api/users/' + userId;
@@ -58,26 +84,4 @@ export const getUsers = (page=1) => dispatch => {
     );
   };
 
-  export const onEditSubmit = (firstName, job, userId) => dispatch => {
-    const url = 'https://reqres.in/api/' + userId
-    fetch(url,
-      {
-        method: 'PUT',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: firstName,
-          job: job,
-        }),
-      })
-      .then(response => response.json())
-      .then(user =>
-            dispatch({
-                type: UPDATE_USER,
-                payload: user
-            })
-        );
-  };    
 
