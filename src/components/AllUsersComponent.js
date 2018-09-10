@@ -18,42 +18,44 @@ class AllUsersComponent extends Component {
     this.props.getUsers();
   }
 
+     UsersTable = () => { 
+     return (     
+          <Table striped bordered condensed hover>
+          <thead>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th></th>
+                <th></th>
+              </tr>
+          </thead>
+          <tbody>
+            {this.renderUserItems()}
+          </tbody>
+        </Table>     
+    );
+  }
+  
+  renderUserItems = () => {
+    return this.props.users.map(user=> {
+      return (                         
+          <UserItem 
+            key={user.id} 
+            {...user}
+            onDelete={this.onDelete}
+            onEditSubmit={this.onEditSubmit}                    
+          />                           
+      );
+      });
+                         
+  }
+
   render() {
     return (
           <div>
-            <AddUser
-              onAdd={this.onAdd}
-            />            
-            <div>
-            <h3>User list</h3>
-              <Table striped bordered condensed hover>
-                <thead>
-                    <tr>
-                      <th>First Name</th>
-                      <th>Last Name</th>
-                      <th></th>
-                      <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                  
-                   {
-                      this.props.users.map(user=> {
-                      return (                         
-                          <UserItem 
-                            key={user.id} 
-                            {...user}
-                            onDelete={this.onDelete}
-                            onEditSubmit={this.onEditSubmit}                    
-                          />                           
-                      );
-                      })
-                    }                     
-
-                </tbody>
-              </Table>
-            
-            </div>
+            <AddUser onAdd={this.onAdd}  />                                  
+            <hr/>            
+            {this.UsersTable()}            
         </div>
       );
   }

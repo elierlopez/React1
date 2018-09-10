@@ -19,9 +19,10 @@ class UserItem extends Component {
     this.setState({isEdit:true});
   }
 
-  onEditSubmit= event => {
-    event.preventDefault();
-    this.props.onEditSubmit(this.FirstNameInput.value, this.LastNameInput.value, this.props.id);
+  onEditSubmit= (first_name, last_name) => {
+    // event.preventDefault();
+    // this.props.onEditSubmit(this.FirstNameInput.value, this.LastNameInput.value, this.props.id);
+    this.props.onEditSubmit(first_name, last_name, this.props.id);
     this.setState({isEdit:false});
 }
  
@@ -37,31 +38,29 @@ simpleRow = (first_name, last_name) => {
 }
 
 actionsRow = (first_name, last_name) => {
-    return (
-        <tr>
-            <td colSpan="4">
-
-                <form onSubmit={this.onEditSubmit}>                    
+        return (
+            <tr>
+                <td>
                     <input 
                         placeholder="First Name"
                         ref={FirstNameInput => this.FirstNameInput = FirstNameInput}
                         defaultValue={first_name}
                     />                    
-                                                
+                </td>
+
+                <td>
                     <input 
                         placeholder="Last Name"
                         ref={LastNameInput => this.LastNameInput = LastNameInput}                
                         defaultValue={last_name}
-                    />
-                
-                    <button>Save</button>                     
-                </form>
-
-            </td>
-        </tr>
-    );
-}
-
+                    />                    
+                </td>                                            
+                <td> <Button bsStyle="info" onClick={() =>  this.onEditSubmit(this.FirstNameInput.value, this.LastNameInput.value) } >Save</Button> </td>            
+                <td>  </td>
+            </tr>
+        );
+    }
+    
   render() {
     const {first_name, last_name} = this.props;
     return  this.state.isEdit 
