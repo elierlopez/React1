@@ -14,8 +14,8 @@ export const getUsers = (page=1) => dispatch => {
     );
   };
 
-
- export const onAdd = (name,lastname) => dispatch => {
+const defaultAvatar = "https://media.istockphoto.com/photos/businessman-silhouette-as-avatar-or-default-profile-picture-picture-id476085198?k=6&m=476085198&s=612x612&w=0&h=5cDQxXHFzgyz8qYeBQu2gCZq1_TN0z40e_8ayzne0X0=";
+ export const onAdd = (name,lastname, avatar=defaultAvatar) => dispatch => {
     const url = 'https://reqres.in/api/users';
     fetch(url,
     {
@@ -29,6 +29,7 @@ export const getUsers = (page=1) => dispatch => {
       body: JSON.stringify({
       name: name,            
       lastname: lastname,
+      avatar:avatar
       })
     })
     .then(results => {
@@ -37,6 +38,7 @@ export const getUsers = (page=1) => dispatch => {
     .then(user => {
         user.first_name = name;
         user.last_name = lastname;
+        user.avatar = avatar;
         dispatch({
           type: ADD_USER,
           payload: user
@@ -44,7 +46,7 @@ export const getUsers = (page=1) => dispatch => {
       });   
   };
 
-  export const onEditSubmit = (name, lastname, userId) => dispatch => {
+  export const onEditSubmit = (name, lastname, avatar, userId) => dispatch => {
     const url = 'https://reqres.in/api/' + userId
     fetch(url,
       {
@@ -56,6 +58,7 @@ export const getUsers = (page=1) => dispatch => {
         body: JSON.stringify({
           name: name,
           lastname: lastname,
+          avatar:avatar
         })
       })
       .then(response => response.json())
@@ -63,6 +66,7 @@ export const getUsers = (page=1) => dispatch => {
         user.id = userId;
         user.first_name = name;
         user.last_name = lastname;
+        user.avatar = avatar;
         dispatch({
           type: UPDATE_USER,
           payload: user

@@ -11,3 +11,17 @@ th {
 td{
   vertical-align:middle!important;
 }
+table img{
+  width:50px; 
+  margin:0 auto; 
+}
+
+table td.photo,table th.photo{
+  width: 10%; 
+}
+table td.names{
+  width: 35%; 
+}
+table td.actions, table td.actions{
+  width: 10%; 
+}

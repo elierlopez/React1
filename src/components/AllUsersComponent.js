@@ -23,9 +23,10 @@ class AllUsersComponent extends Component {
           <Table striped bordered condensed hover>
           <thead>
               <tr>
+                <th >Photo</th>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th></th>
+                <th ></th>
                 <th></th>
               </tr>
           </thead>
