@@ -17,3 +17,21 @@ const initialState = {
     onDelete: null,
     onEditSubmit: null
   };
+
+
+  // para copiar un objeto con el spread operator
+   const newObj = {...originalObj};
+  // Para copiar un arreglo 
+   const newArr = [...originalObj];
+  // Para obtener una copia moficada del objeto
+   const newObj = {...originalObj, PropToModify : 'Modified Value'};
+  // Para sacar una copia de un arreglo y agregare un elemento al arreglo 
+  const newArray = [...originalArray,
+                                      {
+                                        id: newId,
+                                        value: 'Some value',                                         
+                                      }
+                   ]
+
+
+// EL <Button> de react-boostrap no hace el submit de una forma como lo hace el <button/> normal

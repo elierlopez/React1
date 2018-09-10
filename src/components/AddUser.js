@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { Button } from 'react-bootstrap';
 import { onAdd } from "../actions/userActions";
 
 
-
 class AddUser extends Component {
-//   constructor(props){
-//     super(props);
-//     // this.onSubmit = this.onSubmit.bind(this);
-//   }
 
     onSubmit = event => {
         event.preventDefault();
@@ -22,14 +18,17 @@ class AddUser extends Component {
     return (
             <div>
                 <h3>Add user</h3>        
-                <form onSubmit={this.onSubmit}>                
+                <form onSubmit={this.onSubmit}>    
+
+               
+                            
                     <input placeholder="First Name"
                         ref={firstName => this.FirstNameInput = firstName}
                     />
                     <input placeholder="Last Name"
                         ref={lastName => this.LastNameInput = lastName}                
                     />
-                    <button>Add</button>
+                    <Button bsStyle="info" type="submit" className="btn btn-primary">Add</Button>
 
                     <hr></hr>
                 </form>

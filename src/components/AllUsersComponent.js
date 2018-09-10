@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import React, { Component } from 'react';
+import { Table } from 'react-bootstrap';
 import PropTypes from "prop-types";
 import { getUsers } from "../actions/userActions";
 import UserItem from './UserItem';
@@ -22,22 +23,36 @@ class AllUsersComponent extends Component {
           <div>
             <AddUser
               onAdd={this.onAdd}
-            />
-
+            />            
             <div>
             <h3>User list</h3>
-              {
-                this.props.users.map(user=> {
-                return (     
-                  <UserItem 
-                    key={user.id} 
-                    {...user}
-                    onDelete={this.onDelete}
-                    onEditSubmit={this.onEditSubmit}                    
-                   />                                  
-                );
-                })
-              }
+              <Table striped bordered condensed hover>
+                <thead>
+                    <tr>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                  
+                   {
+                      this.props.users.map(user=> {
+                      return (                         
+                          <UserItem 
+                            key={user.id} 
+                            {...user}
+                            onDelete={this.onDelete}
+                            onEditSubmit={this.onEditSubmit}                    
+                          />                           
+                      );
+                      })
+                    }                     
+
+                </tbody>
+              </Table>
+            
             </div>
         </div>
       );

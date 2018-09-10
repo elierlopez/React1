@@ -25,15 +25,11 @@ export default function(state = initialState, action) {
         items:[...state.items, action.payload]
       })
     case DELETE_USER:
-      return {
-        ...state,
-        onDelete: action.payload        
-      };
+      const itemsCopy = [...state.items];
+      return Object.assign({}, state, {
+        items: itemsCopy.filter(user => user.id !== action.payload) 
+      });      
     case UPDATE_USER:
-      // return {
-      //   ...state,
-      //   onEditSubmit: action.payload
-      // };
       return Object.assign({}, state, {
         items: state.items.map(user => {
           if (user.id === action.payload.id) {

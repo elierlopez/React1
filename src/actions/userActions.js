@@ -15,7 +15,7 @@ export const getUsers = (page=1) => dispatch => {
   };
 
 
- export const onAdd = (name, job) => dispatch => {
+ export const onAdd = (name,lastname) => dispatch => {
     const url = 'https://reqres.in/api/users';
     fetch(url,
     {
@@ -27,8 +27,8 @@ export const getUsers = (page=1) => dispatch => {
     },
     {
       body: JSON.stringify({
-      name: name,
-      job: job
+      name: name,            
+      lastname: lastname,
       })
     })
     .then(results => {
@@ -36,7 +36,7 @@ export const getUsers = (page=1) => dispatch => {
     })
     .then(user => {
         user.first_name = name;
-        user.job = job;
+        user.last_name = lastname;
         dispatch({
           type: ADD_USER,
           payload: user
@@ -44,7 +44,7 @@ export const getUsers = (page=1) => dispatch => {
       });   
   };
 
-  export const onEditSubmit = (name, job, userId) => dispatch => {
+  export const onEditSubmit = (name, lastname, userId) => dispatch => {
     const url = 'https://reqres.in/api/' + userId
     fetch(url,
       {
@@ -55,14 +55,14 @@ export const getUsers = (page=1) => dispatch => {
         },
         body: JSON.stringify({
           name: name,
-          job: job,
+          lastname: lastname,
         })
       })
       .then(response => response.json())
       .then(user =>{
         user.id = userId;
         user.first_name = name;
-        user.job = job;
+        user.last_name = lastname;
         dispatch({
           type: UPDATE_USER,
           payload: user
