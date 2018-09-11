@@ -33,5 +33,8 @@ const initialState = {
                                       }
                    ]
 
-
 // EL <Button> de react-boostrap no hace el submit de una forma como lo hace el <button/> normal
+
+// para bajar un branch remoto que no tengo localmente
+// $ git checkout --track origin/newBranch
+// Va a crear un branch local que se llama igual al remoto "NewBranch"
