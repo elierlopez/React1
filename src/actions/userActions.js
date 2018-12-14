@@ -1,6 +1,6 @@
 import { GET_USERS, ADD_USER, DELETE_USER, UPDATE_USER } from "./types";
 
-
+//This is an action creator as it dispatches the action 
 export const getUsers = (page=1) => dispatch => {
     const url = 'https://reqres.in/api/users?page=' + page;
     fetch(url)
